@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Register</title>
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
+</head>
+<style>
+    .helptext{
+        display: none; 
+        /* to hide helptext lable */
+    }
+</style>
+<body>
+    <div class="container-fluid pt-5">
+        <div class="mx-auto">
+            <form method="POST">
+                {% csrf_token %}
+                {{form}}
+                <br>
+                <button class="btn btn-light" type="submit">
+                {% if type == "login" %}    Login {% else %} SignUp {% endif %}
+                </button>
+            </form>
+        </div>
+        <div>
+            {% if type == "login" %}
+            <a href="{% url 'signup' %}">SignUp</a>    
+            {% else %} 
+            <a href="{% url 'login' %}">LogIn</a> 
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

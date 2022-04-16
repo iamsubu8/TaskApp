@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
+    <title>Task Table</title>
+</head>
+<body>
+    <div class="container">
+        <div pt-5>
+            {% if request.user.is_authenticated %}
+            <h3>Welcome {{ request.user }}</h3>
+            <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+        <hr>
+        <div class="pt-5">
+            <h4>Task Status Table</h4>
+            <a href="{% url 'taskStatus' %}">Add Task Status</a>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">TaskID</th>
+                    <th scope="col">UserID</th>
+                    <th scope="col">TStatus</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for task in taskDatas %}
+                  <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{ task.TaskID }}</td>
+                    <td>{{task.UserID}}</td>
+                    <td>{{ task.TStatus }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    </div>
+</body>
+</html>

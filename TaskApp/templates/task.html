@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
+    <title>Task Status</title>
+</head>
+<body>
+    <div class="container">
+        <div pt-5>
+            {% if request.user.is_authenticated %}
+            <h3>Welcome {{ request.user }}</h3>
+            
+            <a class="btn btn-primary" href="/logout">Logout</a>
+            {% else %}
+            <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+        <hr>
+        <div class="pt-5">
+            <h4>Add Task Status</h4>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <label>UserID</label>
+                <input type="text" name="userID" value="{{ request.user }}" readonly>
+                <button type="submit">submit</button>
+            </form>
+        </div>
+        <hr>
+        <div class="pt-5">
+            <h4>Add Tasks</h4>
+            <form method="POST">
+                {% csrf_token %}
+                {{ taskForm }}
+                <button type="submit">submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
